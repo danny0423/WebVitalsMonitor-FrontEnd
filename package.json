@@ -1,20 +1,13 @@
 {
-  "name": "webvitalsmonitor",
+  "name": "vitalmetrics-client",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "VitalMetrics Client Application",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/danny0423/WebVitalsMonitor.git"
+    "dev": "webpack serve --config webpack.config.js --mode development",
+    "build": "webpack --config webpack.config.js --mode production",
+    "type-check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/danny0423/WebVitalsMonitor/issues"
-  },
-  "homepage": "https://github.com/danny0423/WebVitalsMonitor#readme"
+  "license": "MIT"
 }
