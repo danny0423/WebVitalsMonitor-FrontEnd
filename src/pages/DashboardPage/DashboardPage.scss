@@ -6,6 +6,24 @@
   display: flex;
   flex-direction: column;
   background: $bg-secondary;
+
+  &--loading {
+    @include flex-center;
+  }
+}
+
+.dashboard-page__loader {
+  font-size: $font-size-lg;
+  color: $text-secondary;
+}
+
+.dashboard-page__error {
+  padding: $spacing-3 $spacing-4;
+  background: rgba($error, 0.1);
+  border: 1px solid $error;
+  border-radius: 8px;
+  color: $error;
+  font-size: $font-size-sm;
 }
 
 // === Top Bar ===
@@ -63,6 +81,7 @@
 }
 
 .dashboard-page__avatar {
+  @include button-reset;
   width: 36px;
   height: 36px;
   @include flex-center;
@@ -71,6 +90,12 @@
   color: $text-inverse;
   font-weight: $font-weight-semibold;
   font-size: $font-size-sm;
+  cursor: pointer;
+  transition: background $transition-base;
+
+  &:hover {
+    background: $primary-dark;
+  }
 }
 
 // === Body ===

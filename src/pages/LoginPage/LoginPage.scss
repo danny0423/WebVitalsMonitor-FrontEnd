@@ -78,6 +78,23 @@
   margin-bottom: $spacing-8;
 }
 
+.login-page__error {
+  padding: $spacing-3 $spacing-4;
+  background: rgba($error, 0.1);
+  border: 1px solid $error;
+  border-radius: 8px;
+  color: $error;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-4;
+}
+
+.login-page__demo-hint {
+  text-align: center;
+  color: $text-tertiary;
+  font-size: $font-size-xs;
+  margin-top: $spacing-2;
+}
+
 .login-page__form-title {
   font-size: $font-size-2xl;
   font-weight: $font-weight-bold;

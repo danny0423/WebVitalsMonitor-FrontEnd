@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { authApi } from '../../services/api';
 import './LoginPage.scss';
 
 export const LoginPage: React.FC = () => {
@@ -9,11 +10,24 @@ export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 簡化版登入，直接導航到 dashboard
-    navigate('/dashboard');
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const response = await authApi.login(email, password);
+      if (response.success) {
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,6 +66,8 @@ export const LoginPage: React.FC = () => {
             </p>
           </div>
 
+          {error && <div className="login-page__error">{error}</div>}
+
           <form onSubmit={handleSubmit} className="login-page__form">
             <Input
               type="email"
@@ -61,6 +77,7 @@ export const LoginPage: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               fullWidth
               required
+              disabled={isLoading}
             />
 
             <div className="login-page__password-field">
@@ -72,6 +89,7 @@ export const LoginPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 fullWidth
                 required
+                disabled={isLoading}
               />
               <button
                 type="button"
@@ -89,9 +107,21 @@ export const LoginPage: React.FC = () => {
               </a>
             </div>
 
-            <Button type="submit" variant="primary" size="md" fullWidth>
-              Sign in
+            <Button
+              type="submit"
+              variant="primary"
+              size="md"
+              fullWidth
+              disabled={isLoading}
+            >
+              {isLoading ? 'Signing in...' : 'Sign in'}
             </Button>
+
+            <div className="login-page__demo-hint">
+              <small>
+                Demo: demo@vitalmetrics.com / password
+              </small>
+            </div>
 
             <div className="login-page__footer">
               <span className="login-page__footer-text">

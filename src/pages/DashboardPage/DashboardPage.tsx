@@ -1,37 +1,77 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
-import { Badge } from '../../components/Badge';
 import { MetricCard } from '../../components/MetricCard';
 import { DataTable } from '../../components/DataTable';
 import type { PageMetric } from '../../components/DataTable';
+import { dashboardApi, authApi, tokenStorage } from '../../services/api';
 import './DashboardPage.scss';
 
-const mockMetrics = [
-  {
-    page: '/home',
-    lcp: 1.2,
-    inp: 350,
-    cls: 0.42,
-    status: 'poor' as const,
-  },
-  {
-    page: '/products',
-    lcp: 2.1,
-    inp: 180,
-    cls: 0.08,
-    status: 'good' as const,
-  },
-  {
-    page: '/checkout',
-    lcp: 3.8,
-    inp: 450,
-    cls: 0.25,
-    status: 'needs-improvement' as const,
-  },
-] as PageMetric[];
+interface MetricSummary {
+  title: string;
+  value: string;
+  unit?: string;
+  status: 'good' | 'needs-improvement' | 'poor';
+  trend: {
+    direction: 'up' | 'down' | 'stable';
+    value: string;
+  };
+}
 
 export const DashboardPage: React.FC = () => {
-  const [activeNav, setActiveNav] = React.useState('dashboard');
+  const navigate = useNavigate();
+  const [activeNav, setActiveNav] = useState('dashboard');
+  const [metrics, setMetrics] = useState<MetricSummary[]>([]);
+  const [pageMetrics, setPageMetrics] = useState<PageMetric[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // 檢查是否有 token
+      if (!tokenStorage.get()) {
+        navigate('/');
+        return;
+      }
+
+      try {
+        const response = await dashboardApi.getData();
+        if (response.success) {
+          setMetrics(response.data.metrics);
+          setPageMetrics(response.data.pageMetrics);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load data');
+        // 如果是認證錯誤，導回登入頁
+        if (err instanceof Error && err.message === 'Unauthorized') {
+          tokenStorage.remove();
+          navigate('/');
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
+
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+    } catch {
+      // 即使 logout API 失敗也要清除 token
+      tokenStorage.remove();
+    }
+    navigate('/');
+  };
+
+  if (isLoading) {
+    return (
+      <div className="dashboard-page dashboard-page--loading">
+        <div className="dashboard-page__loader">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-page">
@@ -58,7 +98,13 @@ export const DashboardPage: React.FC = () => {
           <button className="dashboard-page__icon-btn" aria-label="Notifications">
             🔔
           </button>
-          <div className="dashboard-page__avatar">U</div>
+          <button
+            className="dashboard-page__avatar"
+            onClick={handleLogout}
+            title="Logout"
+          >
+            U
+          </button>
         </div>
       </header>
 
@@ -132,41 +178,24 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
 
+          {error && <div className="dashboard-page__error">{error}</div>}
+
           {/* Metrics Row */}
           <div className="dashboard-page__metrics">
-            <MetricCard
-              title="LCP"
-              value="1.2"
-              unit="s"
-              status="good"
-              trend={{
-                direction: 'down',
-                value: '-0.3s from last week',
-              }}
-            />
-            <MetricCard
-              title="INP"
-              value="350"
-              unit="ms"
-              status="needs-improvement"
-              trend={{
-                direction: 'stable',
-                value: 'Stable from last week',
-              }}
-            />
-            <MetricCard
-              title="CLS"
-              value="0.42"
-              status="poor"
-              trend={{
-                direction: 'up',
-                value: '+0.15 from last week',
-              }}
-            />
+            {metrics.map((metric) => (
+              <MetricCard
+                key={metric.title}
+                title={metric.title}
+                value={metric.value}
+                unit={metric.unit}
+                status={metric.status}
+                trend={metric.trend}
+              />
+            ))}
           </div>
 
           {/* Data Table */}
-          <DataTable data={mockMetrics} />
+          <DataTable data={pageMetrics} />
         </main>
       </div>
     </div>
