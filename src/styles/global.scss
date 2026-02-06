@@ -1,26 +1,81 @@
+@import './variables';
+@import './mixins';
+
+// === Reset ===
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+// === Base ===
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 
-    'Helvetica Neue', sans-serif;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  background: $bg-secondary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.app {
-  padding: 2rem;
-  
-  h1 {
-    color: #333;
-    margin-bottom: 1rem;
-  }
-  
-  p {
-    color: #666;
+// === Typography ===
+h1, .h1 {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $text-primary;
+  margin-bottom: 1rem;
+}
+
+h2, .h2 {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $text-primary;
+  margin-bottom: 0.875rem;
+}
+
+h3, .h3 {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  margin-bottom: 0.75rem;
+}
+
+h4, .h4 {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  margin-bottom: 0.5rem;
+}
+
+// === Utilities ===
+.text-sm {
+  font-size: $font-size-sm;
+}
+
+.text-xs {
+  font-size: $font-size-xs;
+}
+
+.text-secondary {
+  color: $text-secondary;
+}
+
+.text-tertiary {
+  color: $text-tertiary;
+}
+
+// === Links ===
+a {
+  color: $primary;
+  text-decoration: none;
+  transition: color $transition-base;
+
+  &:hover {
+    color: $primary-dark;
   }
 }

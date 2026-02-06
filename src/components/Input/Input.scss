@@ -1,0 +1,64 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  &--full-width {
+    width: 100%;
+  }
+}
+
+.input-label {
+  display: block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+}
+
+.input {
+  width: 100%;
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  background: $bg-primary;
+  border: 1px solid $border-medium;
+  border-radius: 6px;
+  transition: all $transition-base ease;
+
+  &::placeholder {
+    color: $text-tertiary;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+
+  &:disabled {
+    background: $gray-100;
+    cursor: not-allowed;
+  }
+
+  &--error {
+    border-color: $error;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($error, 0.1);
+    }
+  }
+}
+
+.input-helper {
+  margin-top: $spacing-1;
+  font-size: $font-size-xs;
+  color: $text-secondary;
+
+  &--error {
+    color: $error;
+  }
+}

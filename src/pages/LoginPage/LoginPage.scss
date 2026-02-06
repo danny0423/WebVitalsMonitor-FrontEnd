@@ -1,0 +1,181 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  background: $bg-secondary;
+}
+
+// === Brand Panel ===
+.login-page__brand {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-16;
+  background: linear-gradient(180deg, $primary 0%, $primary-dark 100%);
+  color: $text-inverse;
+}
+
+.login-page__brand-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-6;
+  text-align: center;
+}
+
+.login-page__logo {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.login-page__brand-title {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  margin: 0;
+}
+
+.login-page__brand-subtitle {
+  font-size: $font-size-lg;
+  line-height: $line-height-relaxed;
+  color: rgba($text-inverse, 0.8);
+  max-width: 360px;
+  margin: 0;
+}
+
+// === Form Panel ===
+.login-page__form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-16;
+  background: $bg-primary;
+}
+
+.login-page__form-card {
+  width: 100%;
+  max-width: 400px;
+  background: $bg-primary;
+  border-radius: 12px;
+  border: 1px solid $border-light;
+  padding: $spacing-10;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.login-page__form-header {
+  margin-bottom: $spacing-8;
+}
+
+.login-page__form-title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-2;
+}
+
+.login-page__form-subtitle {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  margin: 0;
+}
+
+// === Form ===
+.login-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.login-page__password-field {
+  position: relative;
+}
+
+.login-page__toggle-password {
+  @include button-reset;
+  position: absolute;
+  right: $spacing-3;
+  top: 70%;
+  transform: translateY(-50%);
+  color: $text-tertiary;
+  font-size: $font-size-lg;
+  transition: color $transition-base;
+
+  &:hover {
+    color: $text-secondary;
+  }
+}
+
+.login-page__forgot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -$spacing-3;
+}
+
+.login-page__forgot-link {
+  font-size: $font-size-sm;
+  color: $primary;
+  text-decoration: none;
+
+  &:hover {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+}
+
+.login-page__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-1;
+  padding-top: $spacing-4;
+  border-top: 1px solid $border-light;
+}
+
+.login-page__footer-text {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+}
+
+.login-page__footer-link {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $primary;
+  text-decoration: none;
+
+  &:hover {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+}
+
+// === 響應式 ===
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-page__brand {
+    min-height: 40vh;
+    padding: $spacing-8;
+  }
+
+  .login-page__form-panel {
+    padding: $spacing-8;
+  }
+
+  .login-page__form-card {
+    padding: $spacing-8;
+  }
+}

@@ -1,0 +1,101 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.metric-card {
+  position: relative;
+  background: $bg-primary;
+  border-radius: 8px;
+  border: 1px solid $border-light;
+  border-left: 4px solid transparent;
+  padding: $spacing-6;
+  transition: all $transition-base ease;
+  @include card-shadow;
+
+  &:hover {
+    @include card-shadow-hover;
+    transform: translateY(-2px);
+  }
+
+  // === Status Variants ===
+  &--good {
+    border-left-color: $success;
+    background: linear-gradient(to right, $success-bg 0%, $bg-primary 100%);
+  }
+
+  &--needs-improvement {
+    border-left-color: $warning;
+    background: linear-gradient(to right, $warning-bg 0%, $bg-primary 100%);
+  }
+
+  &--poor {
+    border-left-color: $error;
+    background: linear-gradient(to right, $error-bg 0%, $bg-primary 100%);
+  }
+}
+
+.metric-card__header {
+  @include flex-between;
+  margin-bottom: $spacing-4;
+}
+
+.metric-card__title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-card__value {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-2;
+  margin-bottom: $spacing-3;
+}
+
+.metric-card__number {
+  font-family: $font-family-mono;
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
+  line-height: 1;
+
+  &--good {
+    color: $success-dark;
+  }
+
+  &--needs-improvement {
+    color: $warning-dark;
+  }
+
+  &--poor {
+    color: $error-dark;
+  }
+}
+
+.metric-card__unit {
+  font-size: $font-size-base;
+  color: $text-tertiary;
+}
+
+.metric-card__trend {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-size-sm;
+
+  &--up {
+    color: $error;
+  }
+
+  &--down {
+    color: $success;
+  }
+
+  &--stable {
+    color: $text-secondary;
+  }
+}
+
+.metric-card__trend-icon {
+  font-weight: $font-weight-bold;
+}

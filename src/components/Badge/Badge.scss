@@ -1,0 +1,37 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-1 $spacing-2;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  border-radius: 9999px;
+  white-space: nowrap;
+
+  &--success {
+    background: $success-bg;
+    color: $success-dark;
+  }
+
+  &--warning {
+    background: $warning-bg;
+    color: $warning-dark;
+  }
+
+  &--error {
+    background: $error-bg;
+    color: $error-dark;
+  }
+
+  &--info {
+    background: $info-bg;
+    color: $info-dark;
+  }
+
+  &--gray {
+    background: $gray-100;
+    color: $gray-700;
+  }
+}

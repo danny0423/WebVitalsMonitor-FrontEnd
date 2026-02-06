@@ -1,0 +1,105 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.data-table-card {
+  background: $bg-primary;
+  border-radius: 8px;
+  border: 1px solid $border-light;
+  overflow: hidden;
+  @include card-shadow;
+}
+
+.data-table-card__header {
+  @include flex-between;
+  padding: $spacing-4 $spacing-6;
+  border-bottom: 1px solid $border-light;
+}
+
+.data-table-card__title {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+  margin: 0;
+}
+
+.data-table-wrapper {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+}
+
+.data-table__head {
+  background: $gray-50;
+  border-bottom: 1px solid $border-light;
+}
+
+.data-table__th {
+  padding: $spacing-3 $spacing-4;
+  text-align: left;
+  font-weight: $font-weight-semibold;
+  color: $text-secondary;
+  text-transform: uppercase;
+  font-size: $font-size-xs;
+  letter-spacing: 0.05em;
+
+  &--page {
+    padding-left: $spacing-6;
+  }
+
+  &--metric {
+    width: 100px;
+  }
+
+  &--status {
+    width: 120px;
+  }
+}
+
+.data-table__body {
+  .data-table__row {
+    transition: background $transition-fast ease;
+
+    &:hover {
+      background: $gray-50;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $border-light;
+    }
+  }
+}
+
+.data-table__td {
+  padding: $spacing-3 $spacing-4;
+  color: $text-primary;
+
+  &--page {
+    padding-left: $spacing-6;
+    font-weight: $font-weight-normal;
+  }
+
+  &--metric {
+    font-family: $font-family-mono;
+    font-weight: $font-weight-semibold;
+
+    &--good {
+      color: $success-dark;
+    }
+
+    &--needs-improvement {
+      color: $warning-dark;
+    }
+
+    &--poor {
+      color: $error-dark;
+    }
+  }
+
+  &--status {
+    padding-right: $spacing-6;
+  }
+}

@@ -1,0 +1,233 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.dashboard-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $bg-secondary;
+}
+
+// === Top Bar ===
+.dashboard-page__topbar {
+  @include flex-between;
+  height: 64px;
+  padding: 0 $spacing-6;
+  background: $bg-primary;
+  border-bottom: 1px solid $border-light;
+}
+
+.dashboard-page__topbar-left {
+  @include flex-start;
+  gap: $spacing-3;
+}
+
+.dashboard-page__logo {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $primary;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.dashboard-page__brand {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+}
+
+.dashboard-page__topbar-right {
+  @include flex-start;
+  gap: $spacing-4;
+}
+
+.dashboard-page__icon-btn {
+  @include button-reset;
+  width: 40px;
+  height: 40px;
+  @include flex-center;
+  border-radius: 6px;
+  color: $text-secondary;
+  font-size: $font-size-xl;
+  transition: background $transition-base;
+
+  &:hover {
+    background: $gray-100;
+  }
+}
+
+.dashboard-page__avatar {
+  width: 36px;
+  height: 36px;
+  @include flex-center;
+  border-radius: 9999px;
+  background: $primary;
+  color: $text-inverse;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-sm;
+}
+
+// === Body ===
+.dashboard-page__body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+// === Sidebar ===
+.dashboard-page__sidebar {
+  width: 240px;
+  background: $bg-primary;
+  border-right: 1px solid $border-light;
+  overflow-y: auto;
+}
+
+.dashboard-page__nav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+  padding: $spacing-6 $spacing-4;
+}
+
+.dashboard-page__nav-item {
+  @include button-reset;
+  @include flex-start;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-2 $spacing-3;
+  border-radius: 6px;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-secondary;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $gray-50;
+    color: $text-primary;
+  }
+
+  &--active {
+    background: $primary-50;
+    color: $primary;
+  }
+}
+
+.dashboard-page__nav-icon {
+  font-size: $font-size-lg;
+}
+
+.dashboard-page__nav-text {
+  flex: 1;
+  text-align: left;
+}
+
+// === Main Content ===
+.dashboard-page__main {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-8;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+// === Page Header ===
+.dashboard-page__header {
+  @include flex-between;
+  gap: $spacing-4;
+}
+
+.dashboard-page__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+.dashboard-page__title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin: 0;
+}
+
+.dashboard-page__subtitle {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  margin: 0;
+}
+
+.dashboard-page__header-right {
+  display: flex;
+  gap: $spacing-3;
+}
+
+// === Metrics Row ===
+.dashboard-page__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: $spacing-6;
+}
+
+// === 響應式 ===
+@media (max-width: 1024px) {
+  .dashboard-page__sidebar {
+    width: 200px;
+  }
+
+  .dashboard-page__main {
+    padding: $spacing-6;
+  }
+
+  .dashboard-page__metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page__topbar {
+    padding: 0 $spacing-4;
+  }
+
+  .dashboard-page__body {
+    flex-direction: column;
+  }
+
+  .dashboard-page__sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid $border-light;
+  }
+
+  .dashboard-page__nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: $spacing-4;
+  }
+
+  .dashboard-page__nav-item {
+    flex-shrink: 0;
+  }
+
+  .dashboard-page__main {
+    padding: $spacing-4;
+  }
+
+  .dashboard-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-page__header-right {
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
+}
